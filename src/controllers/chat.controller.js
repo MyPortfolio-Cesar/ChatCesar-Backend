@@ -15,10 +15,6 @@ const getOneChat = async (req, res) => {
         console.log(userArray)
         // console.log(req.query);
         
-        // let idUserCesar = "63d4c565f964924fc24781df";
-        // let idUserBetty = "63d443359cdde80f99dd00b5";
-        // let idUserMary = "63d38e8cf50c8f42a99d0bb8";
-        // let array = [idUserCesar, idUserMary];
         const myChat = await Chat.findOne({'users': {$all: userArray}});
         console.log(myChat)
         if(!myChat) return res.status(404).send({message: "Chat not exist"})

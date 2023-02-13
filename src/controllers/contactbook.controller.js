@@ -72,8 +72,9 @@ const addContactToBook = async (req, res) => {
         console.log(req.body);
         const {userOwner, userAdded} = req.body;
         const contactBook = await ContactBook.findOne({user:userOwner});
+        if(!contactBook) return res.status(404).json({message: "Contact Book not found"});
         const contactBookUpdated = await ContactBook.findByIdAndUpdate(contactBook._id, {"$push": {contacts: userAdded}});
-        res.status(200).json({message: 'Contact Book updated', data: contactBookUpdated});
+        res.status(200).json({message: 'Contact Book contacts updated', data: contactBookUpdated});
 
     } catch (err) {
         return res.status(400).send({err});
